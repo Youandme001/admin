@@ -19,7 +19,7 @@ const WidgetsDropdown = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('tokenadmin');
         setToken(token);
 
         const [commandesResponse, usersResponse] = await Promise.all([

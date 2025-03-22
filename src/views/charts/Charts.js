@@ -55,7 +55,7 @@ const Charts = () => {
     const fetchCommandes = async () => {
         try {
             // Retrieve token from localStorage
-            const storedToken = localStorage.getItem('token');
+            const storedToken = localStorage.getItem('tokenadmin');
             
             if (!storedToken) {
                 // Redirect to login if token is missing

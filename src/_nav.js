@@ -18,31 +18,32 @@ import {
   cilContact,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { Navigate } from 'react-router-dom';
 
 const _nav = [
   {
     component: CNavItem,
-    name: 'Charts',
+    name: 'charte',
     to: '/charts',
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
-  {
-    component: CNavGroup,
-    name: 'Employee',
-    icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Add Employee',
-        to: '/adduser',
-      },
-      {
-        component: CNavItem,
-        name: 'List Employee',
-        to: '/listuser',
-      },
-    ],
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: 'Employee',
+  //   icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'Add Employee',
+  //       to: '/adduser',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'List Employee',
+  //       to: '/listuser',
+  //     },
+  //   ],
+  // },
   {
     component: CNavGroup,
     name: 'Mission',
@@ -51,25 +52,25 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Ajouter produit',
+        name: 'Ajouter un produit',
         to: '/addproduct',
        
       },
       {
         component: CNavItem,
-        name: 'list produit',
+        name: 'liste des produits',
         to: '/listproduct',
        
       },
       {
         component: CNavItem,
-        name: 'list commande',
+        name: 'liste des commandes',
         to: '/listcommande',
        
       },
       {
         component: CNavItem,
-        name: 'list commande',
+        name: 'liste des commandes',
         to: '/commandelisttable',
        
       },

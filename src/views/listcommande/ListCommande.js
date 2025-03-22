@@ -20,7 +20,7 @@ const CommandeList = () => {
   const [token, setToken]= useState();
   const navigate = useNavigate();
   useEffect(() => {
-    const token =localStorage.getItem('token');
+    const token =localStorage.getItem('tokenadmin');
     setToken(token);
     console.log(token);
     const fetchCommandes = async () => {
@@ -78,7 +78,7 @@ const CommandeList = () => {
             <p>Client:</p>
             <ul>
               <li>Nom: {commande.user?.firstName} {commande.user?.lastName}</li>
-              <li>Email: {commande.user?.email}</li>
+              {commande.user?.email && <li>Email: {commande.user.email}</li>}
               <li>Téléphone: {commande.user?.phone}</li>
               <li>Adresse: {commande.user?.address}, {commande.user?.city}, {commande.user?.gouvernorat}, {commande.user?.postalCode}</li>
             </ul>

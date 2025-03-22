@@ -74,7 +74,7 @@ const navigate = useNavigate();
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('tokenadmin');
       setToken(token);
       const [commandesResponse, usersResponse] = await Promise.all([
         axios.get('http://localhost:4000/commande', {

@@ -30,7 +30,7 @@ const UpdateProductForm = () => {
   const [token, setToken]= useState();
   useEffect(() => {
     console.log(productId);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('tokenadmin');
     setToken(token);
     const fetchProduct = async () => {
       try {

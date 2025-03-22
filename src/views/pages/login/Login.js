@@ -53,9 +53,9 @@ const Login = () => {
         const { token ,message } = res.data;
         if (token) {
           // Login successful
-          localStorage.setItem('token', token);
+          localStorage.setItem('tokenadmin', token);
           toast.success('Connexion réussie!');
-          navigate('../addmissions') // Redirect to dashboard or any authenticated route
+          navigate('../charts') // Redirect to dashboard or any authenticated route
         } else {
           // Login failed
           toast.error(message || 'Erreur de connexion. Veuillez réessayer.');
@@ -114,7 +114,7 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+              <CCard className="text-white bg-primary py-5" style={{ width: '44%',backgroundColor: 'white' }}>
                 <CCardBody className="text-center">
                   <div>
                   <img

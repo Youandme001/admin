@@ -31,7 +31,7 @@ const ProductForm = () => {
   const [token, setToken]= useState();
 
   useEffect(() => {
-    const token =localStorage.getItem('token');
+    const token =localStorage.getItem('tokenadmin');
     setToken(token);;
   }, []);
   const handleSubmit = async (e) => {

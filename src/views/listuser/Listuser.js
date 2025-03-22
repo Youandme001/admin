@@ -26,7 +26,7 @@ const Listuser = () => {
   const [token, setToken] = useState();
     
     const fetchUser = async () => {
-      const token =localStorage.getItem('token');
+      const token =localStorage.getItem('tokenadmin');
       setToken(token);
       try {
         const response = await axios.get('http://localhost:4000/user', {
