@@ -19,7 +19,7 @@ import {
 } from '@coreui/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { API_BASE_URL } from '../../config';
+import { API_BASE_URL } from 'src/config';
 const ProductForm = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
