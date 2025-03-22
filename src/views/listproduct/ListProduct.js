@@ -16,6 +16,7 @@ import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from 'src/config';
 
 const ListProduct = () => {
   const [products, setProducts] = useState([]);
@@ -44,7 +45,7 @@ const ListProduct = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        await axios.get('http://localhost:4000/produit')
+        await axios.get(`${API_BASE_URL}/produit`)
         .then(res => {
           const { message , data } = res.data;
           if (message==="Success") {

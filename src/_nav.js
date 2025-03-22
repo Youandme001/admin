@@ -1,24 +1,12 @@
 /* eslint-disable prettier/prettier */
-// eslint-disable-next-line prettier/prettier
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilBell,
-  cilCalculator,
   cilChartPie,
   cilCursor,
-  cilDescription,
-  cilDrop,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
   cilAccountLogout,
-  cilContact,
 } from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
-import { Navigate } from 'react-router-dom';
+import { CNavGroup, CNavItem } from '@coreui/react'
 
 const _nav = [
   {
@@ -27,23 +15,6 @@ const _nav = [
     to: '/charts',
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavGroup,
-  //   name: 'Employee',
-  //   icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'Add Employee',
-  //       to: '/adduser',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'List Employee',
-  //       to: '/listuser',
-  //     },
-  //   ],
-  // },
   {
     component: CNavGroup,
     name: 'Mission',
@@ -54,35 +25,30 @@ const _nav = [
         component: CNavItem,
         name: 'Ajouter un produit',
         to: '/addproduct',
-       
       },
       {
         component: CNavItem,
         name: 'liste des produits',
         to: '/listproduct',
-       
       },
       {
         component: CNavItem,
         name: 'liste des commandes',
         to: '/listcommande',
-       
       },
       {
         component: CNavItem,
         name: 'liste des commandes',
         to: '/commandelisttable',
-       
       },
     ],
   },
   {
     component: CNavItem,
     name: 'Logout',
-    to: '/',
     icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
+    logout: true, // 👈 Custom flag we'll handle manually
   },
-
 ]
 
 export default _nav

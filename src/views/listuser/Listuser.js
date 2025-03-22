@@ -18,6 +18,7 @@ import { fire } from '../../components/firebase-config';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from 'src/config';
 
 const Listuser = () => {
   const [users, setUsers] = useState([]);
@@ -29,7 +30,7 @@ const Listuser = () => {
       const token =localStorage.getItem('tokenadmin');
       setToken(token);
       try {
-        const response = await axios.get('http://localhost:4000/user', {
+        const response = await axios.get(`${API_BASE_URL}/user`, {
           headers: {
             'Content-Type': 'application/json', // Set content type to JSON
             'Authorization': `Bearer ${token}` // Include the token in the Authorization header

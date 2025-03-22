@@ -21,6 +21,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from 'src/config';
 const UpdateProductForm = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const UpdateProductForm = () => {
     setToken(token);
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/produit/${productId}`, {
+        const response = await axios.get(`${API_BASE_URL}/produit/${productId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

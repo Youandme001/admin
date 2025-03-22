@@ -14,6 +14,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from 'src/config';
 
 const CommandeListTable = () => {
   const [commandes, setCommandes] = useState([]);
@@ -26,7 +27,7 @@ const CommandeListTable = () => {
     const fetchCommandes = async () => {
       try {
         // Replace 'http://localhost:4000' with your actual backend URL
-        const response = await axios.get('http://localhost:4000/commande', {
+        const response = await axios.get(`${API_BASE_URL}/commande`, {
           headers: {
             'Content-Type': 'application/json', // Set content type to JSON
             'Authorization': `Bearer ${token}` // Include the token in the Authorization header

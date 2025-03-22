@@ -59,6 +59,7 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from 'src/config';
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
@@ -77,14 +78,14 @@ useEffect(() => {
       const token = localStorage.getItem('tokenadmin');
       setToken(token);
       const [commandesResponse, usersResponse] = await Promise.all([
-        axios.get('http://localhost:4000/commande', {
+        axios.get(`${API_BASE_URL}/commande`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
             'Cache-Control': 'no-cache',
           }
         }),
-        axios.get('http://localhost:4000/user', {
+        axios.get(`${API_BASE_URL}/user`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,

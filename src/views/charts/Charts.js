@@ -13,6 +13,7 @@ import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from 'src/config';
 
 const Charts = () => {
   const [chartData, setChartData] = useState({
@@ -67,7 +68,7 @@ const Charts = () => {
             setToken(storedToken);
 
             // Fetch data using Axios
-            const response = await axios.get('http://localhost:4000/commande', {
+            const response = await axios.get(`${API_BASE_URL}/commande`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${storedToken}`, // Use stored token

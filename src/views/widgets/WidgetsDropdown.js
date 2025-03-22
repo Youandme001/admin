@@ -7,6 +7,7 @@ import CIcon from '@coreui/icons-react';
 import { cilArrowBottom, cilArrowTop } from '@coreui/icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from 'src/config';
 
 const WidgetsDropdown = () => {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -23,14 +24,14 @@ const WidgetsDropdown = () => {
         setToken(token);
 
         const [commandesResponse, usersResponse] = await Promise.all([
-          axios.get('http://localhost:4000/commande', {
+          axios.get(`${API_BASE_URL}/commande`, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
               'Cache-Control': 'no-cache',
             }
           }),
-          axios.get('http://localhost:4000/user', {
+          axios.get(`${API_BASE_URL}/user`, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,

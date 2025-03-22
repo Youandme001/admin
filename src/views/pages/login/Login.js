@@ -24,6 +24,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import avatar1 from 'src/assets/images/logo-offciel.png'
 import axios from 'axios';
+import { API_BASE_URL } from 'src/config'
 
 const Login = () => {
   const [accessToken, setAccessToken] = useState(null); // State to store access token
@@ -46,7 +47,7 @@ const Login = () => {
 
     try {
 
-       await axios.post('http://localhost:4000/admin/login', {
+       await axios.post(`${API_BASE_URL}/admin/login`, {
         email: formData.email,
         password: formData.password,
       }).then(res => {

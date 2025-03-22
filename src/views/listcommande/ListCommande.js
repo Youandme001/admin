@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import {  useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from 'src/config';
 const CommandeList = () => {
   const [commandes, setCommandes] = useState([]);
   const [token, setToken]= useState();
@@ -26,7 +27,7 @@ const CommandeList = () => {
     const fetchCommandes = async () => {
       try {
         // Replace 'http://localhost:4000' with your actual backend URL
-        const response = await axios.get('http://localhost:4000/commande', {
+        const response = await axios.get(`${API_BASE_URL}/commande`, {
           headers: {
             'Content-Type': 'application/json', // Set content type to JSON
             'Authorization': `Bearer ${token}` // Include the token in the Authorization header
@@ -47,7 +48,7 @@ const CommandeList = () => {
 
   const updateStatus = async (commandeId, status) => {
     try {
-      const response = await axios.put(`http://localhost:4000/commande/update/${commandeId}`, { state: status },{
+      const response = await axios.put(`${API_BASE_URL}/commande/update/${commandeId}`, { state: status },{
         headers: {
           'Content-Type': 'application/json', // Set content type to JSON
           'Authorization': `Bearer ${token}` // Include the token in the Authorization header

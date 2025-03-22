@@ -19,7 +19,7 @@ import {
 } from '@coreui/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { API_BASE_URL } from '../../config';
 const ProductForm = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -51,7 +51,7 @@ const ProductForm = () => {
     images.forEach((image) => formData.append('images', image));
   
     try {
-      const response = await axios.post('http://localhost:4000/produit/create', formData, {
+      const response = await axios.post(`${API_BASE_URL}/produit/create`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
