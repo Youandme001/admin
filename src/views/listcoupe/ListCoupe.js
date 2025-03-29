@@ -11,7 +11,7 @@ import {
   CButton,
   CFormInput,
 } from '@coreui/react';
-import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
+// import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -27,14 +27,14 @@ const ListCoupe = () => {
   });
 
   const fetchData = async () => {
-    const coupesRef = collection(fire, 'coupe');
-    onSnapshot(coupesRef, (snapshot) => {
-      const coupeArray = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setCoupes(coupeArray);
-    });
+    // const coupesRef = collection(fire, 'coupe');
+    // onSnapshot(coupesRef, (snapshot) => {
+    //   const coupeArray = snapshot.docs.map((doc) => ({
+    //     ...doc.data(),
+    //     id: doc.id,
+    //   }));
+    //   setCoupes(coupeArray);
+    // });
   };
 
   useEffect(() => {
@@ -43,8 +43,8 @@ const ListCoupe = () => {
 
   const handleDelete = async (id) => {
     try {
-      const coupeRef = doc(fire, 'coupe', id);
-      await deleteDoc(coupeRef);
+      // const coupeRef = doc(fire, 'coupe', id);
+      // await deleteDoc(coupeRef);
     } catch (error) {
       console.error('Error deleting coupe:', error.message);
     }

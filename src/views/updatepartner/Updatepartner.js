@@ -10,7 +10,7 @@ import {
   CButton,
 } from '@coreui/react';
 import { useParams, useHistory } from 'react-router-dom';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+// import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 
 const UpdatePartner = () => {
@@ -27,15 +27,15 @@ const UpdatePartner = () => {
   useEffect(() => {
     const fetchPartnerData = async () => {
       try {
-        const partnerRef = doc(fire, 'partners', id);
-        const partnerSnapshot = await getDoc(partnerRef);
+        // const partnerRef = doc(fire, 'partners', id);
+        // const partnerSnapshot = await getDoc(partnerRef);
 
-        if (partnerSnapshot.exists()) {
-          const partnerData = partnerSnapshot.data();
-          setFormData(partnerData);
-        } else {
-          console.error('Partner not found');
-        }
+        // if (partnerSnapshot.exists()) {
+        //   const partnerData = partnerSnapshot.data();
+        //   setFormData(partnerData);
+        // } else {
+        //   console.error('Partner not found');
+        // }
       } catch (error) {
         console.error('Error fetching partner data:', error);
       }
@@ -56,8 +56,8 @@ const UpdatePartner = () => {
     e.preventDefault();
 
     try {
-      const partnerRef = doc(fire, 'partners', id);
-      await updateDoc(partnerRef, formData);
+      // const partnerRef = doc(fire, 'partners', id);
+      // await updateDoc(partnerRef, formData);
 
       // Redirect to the list of partners after updating
       history.push('/listpartners');

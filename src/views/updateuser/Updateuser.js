@@ -14,7 +14,7 @@ import {
   CRow,
   CFormSelect,
 } from '@coreui/react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+// import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,17 +29,17 @@ const UpdateUserPage = () => {
   });
 
   useEffect(() => {
-    const userRef = doc(fire, 'users1', userId);
+    // const userRef = doc(fire, 'users1', userId);
 
     const fetchUserData = async () => {
       try {
-        const snapshot = await getDoc(userRef);
-        if (snapshot.exists()) {
-          const userData = snapshot.data();
-          setFormData(userData);
-        } else {
-          toast.error('User not found');
-        }
+        // const snapshot = await getDoc(userRef);
+        // if (snapshot.exists()) {
+        //   const userData = snapshot.data();
+        //   setFormData(userData);
+        // } else {
+        //   toast.error('User not found');
+        // }
       } catch (error) {
         console.error('Error fetching user data:', error);
         toast.error('Error fetching user data');
@@ -59,10 +59,10 @@ const UpdateUserPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userRef = doc(fire, 'users', userId);
+    // const userRef = doc(fire, 'users', userId);
 
     try {
-      await updateDoc(userRef, formData);
+      // await updateDoc(userRef, formData);
       toast.success('User updated successfully');
     } catch (error) {
       console.error('Error updating user:', error.message);

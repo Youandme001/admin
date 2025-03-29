@@ -13,7 +13,7 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+// import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,17 +29,17 @@ const UpdateMissionPage = () => {
   });
 
   useEffect(() => {
-    const missionRef = doc(fire, 'missions', missionId);
+    // const missionRef = doc(fire, 'missions', missionId);
 
     const fetchMissionData = async () => {
       try {
-        const snapshot = await getDoc(missionRef);
-        if (snapshot.exists()) {
-          const missionData = snapshot.data();
-          setFormData(missionData);
-        } else {
-          toast.error('Mission not found');
-        }
+        // const snapshot = await getDoc(missionRef);
+        // if (snapshot.exists()) {
+        //   const missionData = snapshot.data();
+        //   setFormData(missionData);
+        // } else {
+        //   toast.error('Mission not found');
+        // }
       } catch (error) {
         console.error('Error fetching mission data:', error);
         toast.error('Error fetching mission data');
@@ -59,10 +59,10 @@ const UpdateMissionPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const missionRef = doc(fire, 'missions', missionId);
+    // const missionRef = doc(fire, 'missions', missionId);
 
     try {
-      await updateDoc(missionRef, formData);
+      // await updateDoc(missionRef, formData);
       toast.success('Mission updated successfully');
     } catch (error) {
       console.error('Error updating mission:', error.message);

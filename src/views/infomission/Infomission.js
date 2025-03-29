@@ -4,7 +4,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
 import { CButton, CCard, CCardBody, CCol, CContainer, CRow, CCardHeader } from '@coreui/react';
-import { doc, getDoc } from 'firebase/firestore';
+// import { doc, getDoc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { useParams } from 'react-router-dom';
 import {
@@ -22,17 +22,17 @@ const DisplayMissionInfoPage = () => {
     const componentRef = useRef();
 
     useEffect(() => {
-        const missionRef = doc(fire, 'missions', missionId);
+        // const missionRef = doc(fire, 'missions', missionId);
 
         const fetchMissionData = async () => {
             try {
-                const snapshot = await getDoc(missionRef);
-                if (snapshot.exists()) {
-                    const missionInfo = snapshot.data();
-                    setMissionData(missionInfo);
-                } else {
-                    console.error('Mission not found');
-                }
+                // const snapshot = await getDoc(missionRef);
+                // if (snapshot.exists()) {
+                //     const missionInfo = snapshot.data();
+                //     setMissionData(missionInfo);
+                // } else {
+                //     console.error('Mission not found');
+                // }
             } catch (error) {
                 console.error('Error fetching mission data:', error);
             }

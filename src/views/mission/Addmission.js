@@ -14,7 +14,7 @@ import {
   CRow,
   CFormSelect,
 } from '@coreui/react';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+// import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -35,21 +35,21 @@ const Addmission = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const usersCollection = collection(fire, 'users');
-      const usersSnapshot = await getDocs(usersCollection);
+      // const usersCollection = collection(fire, 'users');
+      // const usersSnapshot = await getDocs(usersCollection);
 
       const names = [];
-      usersSnapshot.forEach((userDoc) => {
-        const userData = userDoc.data();
-        const fullName = `${userData.firstName} ${userData.lastName}`;
-        names.push({
-          id: userDoc.id,
-          name: fullName,
-          data: userData,
-        });
-      });
+      // usersSnapshot.forEach((userDoc) => {
+      //   const userData = userDoc.data();
+      //   const fullName = `${userData.firstName} ${userData.lastName}`;
+      //   names.push({
+      //     id: userDoc.id,
+      //     name: fullName,
+      //     data: userData,
+      //   });
+      // });
 
-      setUserNames(names);
+      // setUserNames(names);
     };
 
     fetchUsers();
@@ -118,7 +118,7 @@ const Addmission = () => {
     console.log('Duree:', duree);
     console.log('Deadline:', deadline);
 
-    const missionsCollection = collection(fire, 'missions');
+    // const missionsCollection = collection(fire, 'missions');
     const newMission = {
       mission: mission,
       employees: employeeFields.map((field) => field.selectedEmployee),
@@ -127,8 +127,8 @@ const Addmission = () => {
     };
 
     try {
-      const docRef = await addDoc(missionsCollection, newMission);
-      console.log('Document written with ID: ', docRef.id);
+      // const docRef = await addDoc(missionsCollection, newMission);
+      // console.log('Document written with ID: ', docRef.id);
       toast.success('Mission submitted successfully.');
     } catch (error) {
       console.error('Error adding document: ', error);

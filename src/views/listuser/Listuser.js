@@ -12,8 +12,8 @@ import {
   CButton,
   CAvatar,
 } from '@coreui/react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
+// import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ import { API_BASE_URL } from 'src/config';
 
 const Listuser = () => {
   const [users, setUsers] = useState([]);
-  const auth = getAuth();
+  // const auth = getAuth();
   const navigate = useNavigate();
   const [token, setToken] = useState();
     
@@ -53,8 +53,8 @@ const Listuser = () => {
 
   const handleDelete = async (id) => {
     try {
-      const userRef = doc(fire, 'users1', id);
-      await deleteDoc(userRef);
+      // const userRef = doc(fire, 'users1', id);
+      // await deleteDoc(userRef);
       // Refresh the user list after successful deletion
       fetchUser();
     } catch (error) {

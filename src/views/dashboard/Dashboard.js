@@ -45,7 +45,7 @@ import {
   cilUser,
   cilUserFemale,
 } from '@coreui/icons'
-import { collection, getDocs, query, where } from 'firebase/firestore';
+// import { collection, getDocs, query, where } from 'firebase/firestore';
 
 import { fire } from '../../components/firebase-config';
 import avatar1 from 'src/assets/images/avatars/1.jpg'

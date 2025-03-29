@@ -13,7 +13,7 @@ import {
   CRow,
   CFormSelect,
 } from '@coreui/react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,13 +38,13 @@ const Coupe = () => {
           etat,
           action,
           remarque,
-          timestamp: serverTimestamp(),
+          // timestamp: serverTimestamp(),
         };
     
         try {
-          const coupeCollection = collection(fire, 'coupe');
-          const docRef = await addDoc(coupeCollection, newCoupeData);
-          console.log('Document written with ID: ', docRef.id);
+          // const coupeCollection = collection(fire, 'coupe');
+          // const docRef = await addDoc(coupeCollection, newCoupeData);
+          // console.log('Document written with ID: ', docRef.id);
           toast.success('Coupe data submitted successfully.');
         } catch (error) {
           console.error('Error adding document: ', error);

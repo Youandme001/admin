@@ -2,8 +2,8 @@
 // eslint-disable-next-line prettier/prettier
 import React, { useState, useEffect } from 'react';
 import { fire, storage } from '../../components/firebase-config';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+// import { doc, getDoc, updateDoc } from 'firebase/firestore';
+// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
   CButton,
   CCard,

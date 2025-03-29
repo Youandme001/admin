@@ -13,14 +13,14 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, fire, storage } from '../../components/firebase-config'; // Import Firestore instance (db)
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { collection, addDoc } from 'firebase/firestore';
+// import { collection, addDoc } from 'firebase/firestore';
 import CIcon from '@coreui/icons-react';
 import { cilCalendar } from '@coreui/icons';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+// import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const SignUpForm = () => {
   const [img, setImg] = useState('');
@@ -60,40 +60,40 @@ const SignUpForm = () => {
     const lowercaseEmail = formData.email.toLowerCase();
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        lowercaseEmail,
-        formData.password
-      );
+      // const userCredential = await createUserWithEmailAndPassword(
+      //   auth,
+      //   lowercaseEmail,
+      //   formData.password
+      // );
 
-      const user = userCredential.user;
+      // const user = userCredential.user;
 
-      if (user) {
-        const imageRef = ref(storage, `userImages/${user.uid}`);
-        await uploadBytes(imageRef, img);
+      // if (user) {
+      //   // const imageRef = ref(storage, `userImages/${user.uid}`);
+      //   // await uploadBytes(imageRef, img);
 
-        const imageUrl = await getDownloadURL(imageRef);
+      //   // const imageUrl = await getDownloadURL(imageRef);
 
-        const userCollection = collection(fire, 'users1'); // Use Firestore instance (db)
-        const userData = {
-          ...formData,
-          userId: user.uid,
-          email: lowercaseEmail,
-          imageUrl,
-        };
+      //   // const userCollection = collection(fire, 'users1'); // Use Firestore instance (db)
+      //   const userData = {
+      //     ...formData,
+      //     userId: user.uid,
+      //     email: lowercaseEmail,
+      //     // imageUrl,
+      //   };
 
-        try {
-          await addDoc(userCollection, userData);
-          console.log('User data saved to Firestore');
-          toast.success('User data saved to Firestore');
-        } catch (error) {
-          console.error('Error saving user data to Firestore: ', error);
-          toast.error('Error saving user data to Firestore: ' + error.message);
-        }
-      } else {
-        console.error('Error registering user');
-        toast.error('Error registering user');
-      }
+      //   try {
+      //     // await addDoc(userCollection, userData);
+      //     console.log('User data saved to Firestore');
+      //     toast.success('User data saved to Firestore');
+      //   } catch (error) {
+      //     console.error('Error saving user data to Firestore: ', error);
+      //     toast.error('Error saving user data to Firestore: ' + error.message);
+      //   }
+      // } else {
+      //   console.error('Error registering user');
+      //   toast.error('Error registering user');
+      // }
     } catch (error) {
       console.error('Error registering user:', error.message);
       toast.error('Error registering user: ' + error.message);

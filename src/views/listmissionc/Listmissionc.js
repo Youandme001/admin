@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { CContainer, CCol, CRow } from '@coreui/react';
 import MissionCard from './MissionCard';
-import { collection, onSnapshot, deleteDoc, doc, getDocs } from 'firebase/firestore';
+// import { collection, onSnapshot, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 
 const ListMission = () => {
@@ -14,28 +14,28 @@ const ListMission = () => {
 
   const fetchData = async () => {
     // Fetch missions data
-    const missionsRef = collection(fire, 'missions');
-    onSnapshot(missionsRef, (snapshot) => {
-      const missionArray = [];
-      snapshot.forEach((doc) => {
-        const missionData = doc.data();
-        missionData.id = doc.id; // Unique identifier
-        missionArray.push(missionData);
-      });
-      console.log('Fetched Missions:', missionArray); // Log fetched missions
-      setMissions(missionArray);
-    });
+    // const missionsRef = collection(fire, 'missions');
+    // onSnapshot(missionsRef, (snapshot) => {
+    //   const missionArray = [];
+    //   snapshot.forEach((doc) => {
+    //     const missionData = doc.data();
+    //     missionData.id = doc.id; // Unique identifier
+    //     missionArray.push(missionData);
+    //   });
+    //   console.log('Fetched Missions:', missionArray); // Log fetched missions
+    //   setMissions(missionArray);
+    // });
 
     // Fetch user names
-    const usersCollection = collection(fire, 'users');
-    const usersSnapshot = await getDocs(usersCollection);
+    // const usersCollection = collection(fire, 'users');
+    // const usersSnapshot = await getDocs(usersCollection);
 
     const names = [];
-    usersSnapshot.forEach((userDoc) => {
-      const userData = userDoc.data();
-      const fullName = `${userData.firstName} ${userData.lastName}`;
-      names.push(fullName);
-    });
+    // usersSnapshot.forEach((userDoc) => {
+    //   const userData = userDoc.data();
+    //   const fullName = `${userData.firstName} ${userData.lastName}`;
+    //   names.push(fullName);
+    // });
 
     setUserNames(names);
   };
@@ -46,8 +46,8 @@ const ListMission = () => {
 
   const handleDelete = async (id) => {
     try {
-      const missionRef = doc(fire, 'missions', id);
-      await deleteDoc(missionRef);
+      // const missionRef = doc(fire, 'missions', id);
+      // await deleteDoc(missionRef);
       // Refresh the mission list after successful deletion
       fetchData();
     } catch (error) {

@@ -11,7 +11,7 @@ import {
   CTableRow,
   CButton,
 } from '@coreui/react';
-import { collection, onSnapshot, deleteDoc, doc,getDocs } from 'firebase/firestore';
+// import { collection, onSnapshot, deleteDoc, doc,getDocs } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -23,25 +23,25 @@ const ListMission = () => {
   
     const fetchData = async () => {
       // Fetch user names once at the beginning
-      const usersRef = collection(fire, 'users');
-      const usersSnapshot = await getDocs(usersRef);
-      const names = usersSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        name: `${doc.data().firstName} ${doc.data().lastName}`,
-      }));
-      setUserNames(names);
+      // const usersRef = collection(fire, 'users');
+      // const usersSnapshot = await getDocs(usersRef);
+      // const names = usersSnapshot.docs.map((doc) => ({
+      //   id: doc.id,
+      //   name: `${doc.data().firstName} ${doc.data().lastName}`,
+      // }));
+      // setUserNames(names);
   
       // Fetch mission data
-      const missionsRef = collection(fire, 'missions');
-      onSnapshot(missionsRef, (snapshot) => {
-        const missionArray = [];
-        snapshot.forEach((doc) => {
-          const missionData = doc.data();
-          missionData.id = doc.id; // Unique identifier
-          missionArray.push(missionData);
-        });
-        setMissions(missionArray);
-      });
+      // const missionsRef = collection(fire, 'missions');
+      // onSnapshot(missionsRef, (snapshot) => {
+      //   const missionArray = [];
+      //   snapshot.forEach((doc) => {
+      //     const missionData = doc.data();
+      //     missionData.id = doc.id; // Unique identifier
+      //     missionArray.push(missionData);
+      //   });
+      //   setMissions(missionArray);
+      // });
     };
   
     useEffect(() => {
@@ -50,8 +50,8 @@ const ListMission = () => {
 
   const handleDelete = async (id) => {
     try {
-      const missionRef = doc(fire, 'missions', id);
-      await deleteDoc(missionRef);
+      // const missionRef = doc(fire, 'missions', id);
+      // await deleteDoc(missionRef);
       // Refresh the mission list after successful deletion
       fetchData();
     } catch (error) {

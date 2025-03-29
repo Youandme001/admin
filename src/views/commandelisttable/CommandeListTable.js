@@ -10,7 +10,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react';
-import { collection, onSnapshot } from 'firebase/firestore';
+// import { collection, onSnapshot } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';

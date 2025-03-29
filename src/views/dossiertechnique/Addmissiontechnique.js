@@ -14,7 +14,7 @@ import {
   CRow,
   CFormSelect,
 } from '@coreui/react';
-import { collection, addDoc, getDocs, serverTimestamp  } from 'firebase/firestore';
+// import { collection, addDoc, getDocs, serverTimestamp  } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -39,19 +39,19 @@ const Addmission = () => {
   const [showClasseSection, setShowClasseSection] = useState(false);
   useEffect(() => {
     const fetchUsers = async () => {
-      const usersCollection = collection(fire, 'users');
-      const usersSnapshot = await getDocs(usersCollection);
+      // const usersCollection = collection(fire, 'users');
+      // const usersSnapshot = await getDocs(usersCollection);
 
       const names = [];
-      usersSnapshot.forEach((userDoc) => {
-        const userData = userDoc.data();
-        const fullName = `${userData.firstName} ${userData.lastName} ${userData.fonction} `;
-        names.push({
-          id: userDoc.id,
-          name: fullName,
-          data: userData,
-        });
-      });
+      // usersSnapshot.forEach((userDoc) => {
+      //   const userData = userDoc.data();
+      //   const fullName = `${userData.firstName} ${userData.lastName} ${userData.fonction} `;
+      //   names.push({
+      //     id: userDoc.id,
+      //     name: fullName,
+      //     data: userData,
+      //   });
+      // });
 
       setUserNames(names);
     };
@@ -241,7 +241,7 @@ const Addmission = () => {
     console.log('Qte:', qte);
     console.log('Temps:', temps);
 
-    const missionsCollection = collection(fire, 'missions');
+    // const missionsCollection = collection(fire, 'missions');
     const newMission = {
       mission: mission,
       employees: employeeFields.map((field) => field.selectedEmployee),
@@ -249,12 +249,12 @@ const Addmission = () => {
       deadline: deadline,
       qte: qte,
       temps: temps,
-      timestamp: serverTimestamp(),
+      // timestamp: serverTimestamp(),
     };
 
     try {
-      const docRef = await addDoc(missionsCollection, newMission);
-      console.log('Document written with ID: ', docRef.id);
+      // const docRef = await addDoc(missionsCollection, newMission);
+      // console.log('Document written with ID: ', docRef.id);
       toast.success('Mission submitted successfully.');
     } catch (error) {
       console.error('Error adding document: ', error);

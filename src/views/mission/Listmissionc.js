@@ -11,44 +11,44 @@ import {
   CTableRow,
   CButton,
 } from '@coreui/react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
+// import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Listuser = () => {
   const [users, setUsers] = useState([]);
-  const auth = getAuth();
+  // const auth = getAuth();
   const navigate = useNavigate();
 
   const fetchData = () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const usersRef = collection(fire, 'users');
-        onSnapshot(usersRef, (snapshot) => {
-          const userArray = [];
-          snapshot.forEach((doc) => {
-            const userData = doc.data();
-            userData.id = doc.id; // Unique identifier
-            userArray.push(userData);
-          });
-          setUsers(userArray);
-        });
-      } else {
-        setUsers([]);
-      }
-    });
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     // const usersRef = collection(fire, 'users');
+    //     // onSnapshot(usersRef, (snapshot) => {
+    //     //   const userArray = [];
+    //     //   snapshot.forEach((doc) => {
+    //     //     const userData = doc.data();
+    //     //     userData.id = doc.id; // Unique identifier
+    //     //     userArray.push(userData);
+    //     //   });
+    //     //   setUsers(userArray);
+    //     // });
+    //   } else {
+    //     setUsers([]);
+    //   }
+    // });
   };
 
   useEffect(() => {
     fetchData();
-  }, [auth]);
+  }, []);
 
   const handleDelete = async (id) => {
     try {
-      const userRef = doc(fire, 'users', id);
-      await deleteDoc(userRef);
+      // const userRef = doc(fire, 'users', id);
+      // await deleteDoc(userRef);
       // Refresh the user list after successful deletion
       fetchData();
     } catch (error) {

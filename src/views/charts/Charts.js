@@ -9,7 +9,7 @@ import {
   CChartPolarArea,
   CChartRadar,
 } from '@coreui/react-chartjs';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+// import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

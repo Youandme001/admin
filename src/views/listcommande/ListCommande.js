@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
+// import { collection, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config'; // Import your Firebase configuration
 import {
   CContainer,

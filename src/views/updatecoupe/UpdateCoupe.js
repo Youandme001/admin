@@ -19,7 +19,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react';
-import { doc, getDoc, updateDoc, collection, onSnapshot, deleteDoc, getDocs } from 'firebase/firestore';
+// import { doc, getDoc, updateDoc, collection, onSnapshot, deleteDoc, getDocs } from 'firebase/firestore';
 import { fire } from '../../components/firebase-config';
 import { useParams } from 'react-router-dom';
 
@@ -38,32 +38,32 @@ const UpdateCoupe = () => {
 
   useEffect(() => {
     const fetchCoupeData = async () => {
-      const coupeRef = doc(fire, 'coupe', coupeId);
-      const coupeDoc = await getDoc(coupeRef);
-      if (coupeDoc.exists()) {
-        setCoupe(coupeDoc.data());
-      } else {
-        console.log('No such document!');
-      }
+      // const coupeRef = doc(fire, 'coupe', coupeId);
+      // const coupeDoc = await getDoc(coupeRef);
+      // if (coupeDoc.exists()) {
+      //   setCoupe(coupeDoc.data());
+      // } else {
+      //   console.log('No such document!');
+      // }
     };
 
     const fetchMissions = async () => {
-      const usersRef = collection(fire, 'users');
-      const usersSnapshot = await getDocs(usersRef);
-      const names = usersSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        name: `${doc.data().firstName} ${doc.data().lastName}`,
-      }));
-      setUserNames(names);
+      // const usersRef = collection(fire, 'users');
+      // const usersSnapshot = await getDocs(usersRef);
+      // const names = usersSnapshot.docs.map((doc) => ({
+      //   id: doc.id,
+      //   name: `${doc.data().firstName} ${doc.data().lastName}`,
+      // }));
+      // setUserNames(names);
 
-      const missionsRef = collection(fire, 'maintenance');
-      onSnapshot(missionsRef, (snapshot) => {
-        const missionArray = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setMissions(missionArray);
-      });
+      // const missionsRef = collection(fire, 'maintenance');
+      // onSnapshot(missionsRef, (snapshot) => {
+      //   const missionArray = snapshot.docs.map((doc) => ({
+      //     ...doc.data(),
+      //     id: doc.id,
+      //   }));
+      //   setMissions(missionArray);
+      // });
     };
 
     fetchCoupeData();
@@ -79,12 +79,12 @@ const UpdateCoupe = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const coupeRef = doc(fire, 'coupe', coupeId);
+    // const coupeRef = doc(fire, 'coupe', coupeId);
 
     try {
-      await updateDoc(coupeRef, {
-        ...coupe,
-      });
+      // await updateDoc(coupeRef, {
+      //   ...coupe,
+      // });
       console.log('Document successfully updated!');
     } catch (error) {
       console.error('Error updating document: ', error);
@@ -93,8 +93,8 @@ const UpdateCoupe = () => {
 
   const handleDeleteMission = async (id) => {
     try {
-      const missionRef = doc(fire, 'maintenance', id);
-      await deleteDoc(missionRef);
+      // const missionRef = doc(fire, 'maintenance', id);
+      // await deleteDoc(missionRef);
       console.log('Mission successfully deleted!');
     } catch (error) {
       console.error('Error deleting mission:', error.message);
