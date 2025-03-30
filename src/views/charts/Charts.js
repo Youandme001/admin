@@ -101,6 +101,50 @@ const Charts = () => {
                     data: sortedCounts, // Use counts for the data
                   }],
                 });
+                const productQuantities = {};
+
+                commandesData.forEach(item => {
+                  if (item.products && item.products.length > 0) {
+                    item.products.forEach(product => {
+                      const name = product.name;
+                      const quantity = product.quantity;
+                      productQuantities[name] = (productQuantities[name] || 0) + quantity;
+                    });
+                  }
+                });
+
+                const productLabels = Object.keys(productQuantities);
+                const productData = Object.values(productQuantities);
+                const productColors = ['#41B883', '#00D8FF', '#E46651', '#DD1B16', '#FFD700', '#9370DB']; // Add more if needed
+
+                setChartData({
+                  labels: productLabels,
+                  datasets: [{
+                    backgroundColor: productColors.slice(0, productLabels.length),
+                    data: productData,
+                  }],
+                });
+                // Count commandes per gouvernorat
+              const gouvernoratCounts = {};
+              commandesData.forEach(item => {
+                const gov = item.user?.gouvernorat || 'Inconnu';
+                gouvernoratCounts[gov] = (gouvernoratCounts[gov] || 0) + 1;
+              });
+
+              const govLabels = Object.keys(gouvernoratCounts);
+              const govData = Object.values(gouvernoratCounts);
+
+              setGouvernoratChartData({
+                labels: govLabels,
+                datasets: [
+                  {
+                    label: 'Commandes par gouvernorat',
+                    backgroundColor: '#36A2EB',
+                    data: govData,
+                  },
+                ],
+              });
+
             } else if (response.data.message === 'Unauthorized: Access token is required') {
                 // Redirect to login if token is unauthorized
                 navigate(`/login`);
@@ -120,7 +164,7 @@ const Charts = () => {
       
       <CCol xs={6}>
         <CCard className="mb-4">
-          <CCardHeader>Bar Chart</CCardHeader>
+          <CCardHeader>Nombre de Commandes par Jour</CCardHeader>
           <CCardBody>
             <CChartBar data={barChartData} labels="days" />
           </CCardBody>
@@ -128,99 +172,30 @@ const Charts = () => {
       </CCol>
       <CCol xs={6}>
   <CCard className="mb-4">
-    <CCardHeader>Bar Chart - Gouvernorats</CCardHeader>
+    <CCardHeader>Nombre de Commandes par Région</CCardHeader>
     <CCardBody>
       <CChartBar data={gouvernoratChartData} labels="gouvernorats" />
     </CCardBody>
   </CCard>
 </CCol>
 
-      <CCol xs={6}>
-        <CCard className="mb-4">
-          <CCardHeader>Doughnut Chart</CCardHeader>
-          <CCardBody>
-            <CChartDoughnut
-              data={{
-                labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
-                datasets: [
-                  {
-                    backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-                    data: [40, 20, 80, 10],
-                  },
-                ],
-              }}
-            />
-          </CCardBody>
-        </CCard>
-      </CCol>
+        <CCol xs={6}>
+          <CCard className="mb-4">
+            <CCardHeader>Produits les plus commandés</CCardHeader>
+            <CCardBody>
+              <CChartDoughnut data={chartData} />
+            </CCardBody>
+          </CCard>
+        </CCol>
+
       <CCol xs={6}>
       <CCard className="mb-4">
-        <CCardHeader>Pie Chart</CCardHeader>
+        <CCardHeader>Répartition des Produits Commandés</CCardHeader>
         <CCardBody>
           <CChartPie data={chartData} />
         </CCardBody>
       </CCard>
     </CCol>
-      <CCol xs={6}>
-        <CCard className="mb-4">
-          <CCardHeader>Polar Area Chart</CCardHeader>
-          <CCardBody>
-            <CChartPolarArea
-              data={{
-                labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
-                datasets: [
-                  {
-                    data: [11, 16, 7, 3, 14],
-                    backgroundColor: ['#FF6384', '#4BC0C0', '#FFCE56', '#E7E9ED', '#36A2EB'],
-                  },
-                ],
-              }}
-            />
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={6}>
-        <CCard className="mb-4">
-          <CCardHeader>Radar Chart</CCardHeader>
-          <CCardBody>
-            <CChartRadar
-              data={{
-                labels: [
-                  'Eating',
-                  'Drinking',
-                  'Sleeping',
-                  'Designing',
-                  'Coding',
-                  'Cycling',
-                  'Running',
-                ],
-                datasets: [
-                  {
-                    label: 'My First dataset',
-                    backgroundColor: 'rgba(220, 220, 220, 0.2)',
-                    borderColor: 'rgba(220, 220, 220, 1)',
-                    pointBackgroundColor: 'rgba(220, 220, 220, 1)',
-                    pointBorderColor: '#fff',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(220, 220, 220, 1)',
-                    data: [65, 59, 90, 81, 56, 55, 40],
-                  },
-                  {
-                    label: 'My Second dataset',
-                    backgroundColor: 'rgba(151, 187, 205, 0.2)',
-                    borderColor: 'rgba(151, 187, 205, 1)',
-                    pointBackgroundColor: 'rgba(151, 187, 205, 1)',
-                    pointBorderColor: '#fff',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(151, 187, 205, 1)',
-                    data: [28, 48, 40, 19, 96, 27, 100],
-                  },
-                ],
-              }}
-            />
-          </CCardBody>
-        </CCard>
-      </CCol>
     </CRow>
   )
 }

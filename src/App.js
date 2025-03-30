@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
+// eslint-disable-next-line prettier/prettier
 import React, { Component, Suspense } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import './scss/style.scss'
 import ProtectedRoute from './components/ProtectedRoute' // 👈 import this
-
+import RedirectBasedOnAuth from './components/RedirectBasedOnAuth'
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
@@ -23,13 +25,13 @@ class App extends Component {
     return (
       <HashRouter>
         <Suspense fallback={loading}>
-          <Routes>
-            <Route exact path="/" name="Login Page" element={<Login />} />
+        <Routes>
+            <Route exact path="/" element={<RedirectBasedOnAuth />} />
+            <Route exact path="/login" name="Login Page" element={<Login />} />
             <Route exact path="/register" name="Register Page" element={<Register />} />
             <Route exact path="/404" name="Page 404" element={<Page404 />} />
             <Route exact path="/500" name="Page 500" element={<Page500 />} />
 
-            {/* ✅ Protected all other routes inside DefaultLayout */}
             <Route
               path="*"
               name="Home"
@@ -40,6 +42,7 @@ class App extends Component {
               }
             />
           </Routes>
+
         </Suspense>
       </HashRouter>
     )
