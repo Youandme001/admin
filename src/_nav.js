@@ -33,7 +33,7 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'liste des commandes',
+        name: 'Liste des commandes en attentes',
         to: '/listcommande',
       },
       {
