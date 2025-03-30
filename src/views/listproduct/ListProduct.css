@@ -1,0 +1,22 @@
+@media (max-width: 768px) {
+    .form-control {
+      font-size: 14px;
+    }
+  
+    .add-product-btn,
+    .table .btn {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  
+    .table td,
+    .table th {
+      white-space: nowrap;
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  
