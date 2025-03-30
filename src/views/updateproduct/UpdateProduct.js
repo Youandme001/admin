@@ -81,7 +81,7 @@ const UpdateProductForm = () => {
     }
   
     try {
-      const response = await axios.put('http://localhost:4000/produit/update',formData,{
+      const response = await axios.put(`${API_BASE_URL}/produit/update`,formData,{
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
