@@ -88,7 +88,7 @@ const ListProduct = () => {
     <div className="col-12 col-md-3">
       <input
         type="text"
-        placeholder="Filtrer par volume"
+        placeholder="Filtrer par Quantité"
         className="form-control"
         value={filters.volume}
         onChange={(e) => handleFilterChange('volume', e.target.value)}
@@ -112,7 +112,7 @@ const ListProduct = () => {
         <CTableRow>
           <CTableHeaderCell>Nom</CTableHeaderCell>
           <CTableHeaderCell>Prix</CTableHeaderCell>
-          <CTableHeaderCell>Volume</CTableHeaderCell>
+          <CTableHeaderCell>Quantité</CTableHeaderCell>
           <CTableHeaderCell>Propriétés</CTableHeaderCell>
           <CTableHeaderCell>Image</CTableHeaderCell>
           <CTableHeaderCell>Actions</CTableHeaderCell>
@@ -151,7 +151,7 @@ const ListProduct = () => {
       <div key={product.id} className="card mb-3 p-3 shadow-sm">
         <h5>{product.name}</h5>
         <p><strong>Prix:</strong> {product.price} DT</p>
-        <p><strong>Volume:</strong> {product.volume}</p>
+        <p><strong>Quantité:</strong> {product.volume}</p>
         <p><strong>Propriétés:</strong> {product.propertiesCosmetics}</p>
         {product.images?.length > 0 && (
           <img

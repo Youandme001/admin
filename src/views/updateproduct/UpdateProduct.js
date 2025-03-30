@@ -146,7 +146,7 @@ const UpdateProductForm = () => {
                   <CInputGroup className="mb-3">
                     <CFormInput
                       type="text"
-                      placeholder="Volume"
+                      placeholder="Quantité"
                       name="volume"
                       value={product.volume || ''}
                       onChange={(e) => setProduct({ ...product, volume: e.target.value })}

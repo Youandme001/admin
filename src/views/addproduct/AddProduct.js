@@ -123,7 +123,7 @@ const ProductForm = () => {
                   <CInputGroup className="mb-3">
                     <CFormInput
                       type="text"
-                      placeholder="Volume"
+                      placeholder="Quantité"
                       name="volume"
                       value={volume}
                       onChange={(e) => setVolume(e.target.value)}
