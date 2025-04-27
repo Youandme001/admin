@@ -33,6 +33,16 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Ajouter un Categories',
+        to: '/addcategorie',
+      },
+      {
+        component: CNavItem,
+        name: 'liste des Categories',
+        to: '/listcategories',
+      },
+      {
+        component: CNavItem,
         name: 'Liste des commandes en attentes',
         to: '/listcommande',
       },

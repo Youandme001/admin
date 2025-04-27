@@ -1,10 +1,7 @@
 /* eslint-disable prettier/prettier */
-// eslint-disable-next-line prettier/prettier
 import React, { useEffect, useState } from 'react';
 import { fire, storage } from '../../components/firebase-config';
-// import { collection, addDoc } from 'firebase/firestore';
-// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 import {
   CButton,
   CCard,
@@ -16,10 +13,12 @@ import {
   CFormTextarea,
   CInputGroup,
   CRow,
+  CFormSelect,
 } from '@coreui/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { API_BASE_URL } from 'src/config';
+
 const ProductForm = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -28,19 +27,36 @@ const ProductForm = () => {
   const [volume, setVolume] = useState('');
   const [propertiesCosmetics, setPropertiesCosmetics] = useState('');
   const [designation, setDesignation] = useState('');
-  const [token, setToken]= useState();
+  const [categoryId, setCategoryId] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [token, setToken] = useState();
 
   useEffect(() => {
-    const token =localStorage.getItem('tokenadmin');
-    setToken(token);;
+    const token = localStorage.getItem('tokenadmin');
+    setToken(token);
+    fetchCategories();
   }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/categories`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.data.message === 'Success') {
+        setCategories(response.data.data);
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des catégories :', error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (images.length === 0) {
       toast.error('Veuillez télécharger au moins une image pour le produit');
       return;
     }
-  
+
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', price);
@@ -48,16 +64,17 @@ const ProductForm = () => {
     formData.append('volume', volume);
     formData.append('designation', designation);
     formData.append('propertiesCosmetics', propertiesCosmetics);
+    formData.append('categoryId', categoryId);
     images.forEach((image) => formData.append('images', image));
-  
+
     try {
       const response = await axios.post(`${API_BASE_URL}/produit/create`, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       if (response.status === 201) {
         setName('');
         setPrice('');
@@ -66,27 +83,20 @@ const ProductForm = () => {
         setVolume('');
         setPropertiesCosmetics('');
         setDesignation('');
+        setCategoryId('');
         toast.success('Produit ajouté avec succès !');
       } else {
-        throw new Error('Failed to create product');
+        throw new Error('Échec de la création du produit');
       }
     } catch (error) {
       console.error("Erreur lors de l'ajout du produit : ", error);
       toast.error(`Erreur lors de l'ajout du produit : ${error.message}`);
     }
   };
-  
 
   return (
     <div className="app-container">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover draggable />
       <CContainer>
         <CCard>
           <CCardBody>
@@ -175,25 +185,36 @@ const ProductForm = () => {
               <CRow>
                 <CCol md="12">
                   <CInputGroup className="mb-3">
-                  <CFormInput
+                    <CFormSelect
+                      value={categoryId}
+                      onChange={(e) => setCategoryId(e.target.value)}
+                      required
+                    >
+                      <option value="">Sélectionnez une catégorie</option>
+                      {categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                      ))}
+                    </CFormSelect>
+                  </CInputGroup>
+                </CCol>
+              </CRow>
+              <CRow>
+                <CCol md="12">
+                  <CInputGroup className="mb-3">
+                    <CFormInput
                       type="file"
                       name="images"
                       accept="image/*"
                       multiple
                       onChange={(e) => setImages(Array.from(e.target.files))}
                     />
-
                   </CInputGroup>
                 </CCol>
               </CRow>
               <CButton
                 color="primary"
                 type="submit"
-                style={{
-                  marginTop: '20px',
-                  backgroundColor: 'red',
-                  color: 'white',
-                }}
+                style={{ marginTop: '20px', backgroundColor: 'red', color: 'white' }}
               >
                 Ajouter le produit
               </CButton>
