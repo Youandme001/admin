@@ -1,9 +1,5 @@
 /* eslint-disable prettier/prettier */
-// eslint-disable-next-line prettier/prettier
 import React, { useState, useEffect } from 'react';
-import { fire, storage } from '../../components/firebase-config';
-// import { doc, getDoc, updateDoc } from 'firebase/firestore';
-// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
   CButton,
   CCard,
@@ -16,51 +12,64 @@ import {
   CImage,
   CInputGroup,
   CRow,
+  CFormSelect,
 } from '@coreui/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from 'src/config';
+
 const UpdateProductForm = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [token, setToken]= useState();
+  const [categories, setCategories] = useState([]);
+  const [categoryId, setCategoryId] = useState('');
+  const [token, setToken] = useState();
+
   useEffect(() => {
-    console.log(productId);
     const token = localStorage.getItem('tokenadmin');
     setToken(token);
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/produit/${productId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status !== 200) {
-          throw new Error('Failed to fetch product');
-        }
-        setProduct(response.data.data);
-        // Set the main image URL to the first image in the images array
-        if (response.data.data.images && response.data.data.images.length > 0) {
-          setImagePreviews(response.data.data.images.map((image) => image.filepath));
-        }
-      } catch (error) {
-        console.error('Error fetching product:', error);
-      }
-    };
-    fetchProduct();
+    fetchProduct(token);
+    fetchCategories(token);
   }, [productId]);
-  
+
+  const fetchProduct = async (token) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/produit/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.status !== 200) throw new Error('Failed to fetch product');
+      setProduct(response.data.data);
+      setCategoryId(response.data.data.categoryId || '');
+      if (response.data.data.images && response.data.data.images.length > 0) {
+        setImagePreviews(response.data.data.images.map((img) => img.filepath));
+      }
+    } catch (error) {
+      console.error('Error fetching product:', error);
+    }
+  };
+
+  const fetchCategories = async (token) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/categories`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.data.message === 'Success') {
+        setCategories(response.data.data);
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des catégories :', error);
+    }
+  };
+
   useEffect(() => {
     if (images.length > 0) {
-      const newImagePreviews = images.map((image) =>
-        URL.createObjectURL(image)
-      );
-      setImagePreviews(newImagePreviews);
+      const previews = images.map((img) => URL.createObjectURL(img));
+      setImagePreviews(previews);
     }
   }, [images]);
 
@@ -74,42 +83,34 @@ const UpdateProductForm = () => {
     formData.append('volume', product.volume);
     formData.append('designation', product.designation);
     formData.append('propertiesCosmetics', product.propertiesCosmetics);
+    formData.append('categoryId', categoryId);
     if (images.length > 0) {
-      images.forEach(image => {
-        formData.append('images', image);
-      });
+      images.forEach((img) => formData.append('images', img));
     }
-  
+
     try {
-      const response = await axios.put(`${API_BASE_URL}/produit/update`,formData,{
+      const response = await axios.put(`${API_BASE_URL}/produit/update`, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
-      if (response.data.message=="Product updated successfully!") {
+      if (response.data.message === "Product updated successfully!") {
         toast.success('Produit mis à jour avec succès !');
-        navigate('/listproduct'); // Navigate to ListProduct page
-      } else if(response.data.message=="Unauthorized: Access token is required") {
+        navigate('/listproduct');
+      } else if (response.data.message === "Unauthorized: Access token is required") {
         navigate('/login');
         throw new Error(response.data.message);
       }
     } catch (error) {
-      console.error("Erreur lors de la mise à jour du produit : ", error);
+      console.error('Erreur lors de la mise à jour du produit :', error);
       toast.error(`Erreur lors de la mise à jour du produit : ${error.message}`);
     }
   };
-  
+
   return (
     <div className="app-container">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover draggable />
       <CContainer>
         <CCard>
           <CCardBody>
@@ -121,7 +122,6 @@ const UpdateProductForm = () => {
                     <CFormInput
                       type="text"
                       placeholder="Nom du produit"
-                      name="name"
                       value={product.name || ''}
                       onChange={(e) => setProduct({ ...product, name: e.target.value })}
                       required
@@ -135,7 +135,6 @@ const UpdateProductForm = () => {
                     <CFormInput
                       type="number"
                       placeholder="Prix"
-                      name="price"
                       value={product.price || ''}
                       onChange={(e) => setProduct({ ...product, price: parseFloat(e.target.value) })}
                       required
@@ -147,7 +146,6 @@ const UpdateProductForm = () => {
                     <CFormInput
                       type="text"
                       placeholder="Quantité"
-                      name="volume"
                       value={product.volume || ''}
                       onChange={(e) => setProduct({ ...product, volume: e.target.value })}
                       required
@@ -161,7 +159,6 @@ const UpdateProductForm = () => {
                     <CFormInput
                       type="text"
                       placeholder="Désignation"
-                      name="designation"
                       value={product.designation || ''}
                       onChange={(e) => setProduct({ ...product, designation: e.target.value })}
                       required
@@ -173,7 +170,6 @@ const UpdateProductForm = () => {
                     <CFormInput
                       type="text"
                       placeholder="Propriétés cosmétiques"
-                      name="propertiesCosmetics"
                       value={product.propertiesCosmetics || ''}
                       onChange={(e) => setProduct({ ...product, propertiesCosmetics: e.target.value })}
                       required
@@ -186,7 +182,6 @@ const UpdateProductForm = () => {
                   <CInputGroup className="mb-3">
                     <CFormTextarea
                       placeholder="Description"
-                      name="description"
                       value={product.description || ''}
                       onChange={(e) => setProduct({ ...product, description: e.target.value })}
                       rows="3"
@@ -198,9 +193,24 @@ const UpdateProductForm = () => {
               <CRow>
                 <CCol md="12">
                   <CInputGroup className="mb-3">
+                    <CFormSelect
+                      value={categoryId}
+                      onChange={(e) => setCategoryId(e.target.value)}
+                      required
+                    >
+                      <option value="">Sélectionnez une catégorie</option>
+                      {categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                      ))}
+                    </CFormSelect>
+                  </CInputGroup>
+                </CCol>
+              </CRow>
+              <CRow>
+                <CCol md="12">
+                  <CInputGroup className="mb-3">
                     <CFormInput
                       type="file"
-                      name="images"
                       accept="image/*"
                       multiple
                       onChange={(e) => setImages(Array.from(e.target.files))}
@@ -211,27 +221,13 @@ const UpdateProductForm = () => {
               <CRow>
                 <CCol md="12">
                   <div className="image-previews">
-                    {imagePreviews.map((imageUrl, index) => (
-                      <CImage
-                        key={index}
-                        src={imageUrl}
-                        alt="Product Image"
-                        height={100}
-                        className="me-2"
-                      />
+                    {imagePreviews.map((url, index) => (
+                      <CImage key={index} src={url} alt="Product Image" height={100} className="me-2" />
                     ))}
                   </div>
                 </CCol>
               </CRow>
-              <CButton
-                color="primary"
-                type="submit"
-                style={{
-                  marginTop: '20px',
-                  backgroundColor: 'red',
-                  color: 'white',
-                }}
-              >
+              <CButton color="primary" type="submit" style={{ marginTop: '20px', backgroundColor: 'red', color: 'white' }}>
                 Modifier le produit
               </CButton>
             </CForm>
@@ -243,5 +239,3 @@ const UpdateProductForm = () => {
 };
 
 export default UpdateProductForm;
-
-
